@@ -12,18 +12,20 @@ import java.awt.event.MouseEvent;
 public class GestionNotas {
     private JPanel MainPanel;
     private JLabel label_titulo;
-
     private JPanel JPanel_tabla;
     private JTable tabla;
     private JButton btn_nuevo;
     private JButton btn_modificar;
     private JButton btn_borrar;
     private JPanel JPanel_btn;
-
     private JLabel Ayuda;
     private DefaultTableModel Model;
     NuevaTarea nuevatarea = new NuevaTarea();
+    ModTarea modtarea = new ModTarea();
     JFrame ventanaNuevaTarea = new JFrame("Gestion de Notas");
+    JFrame ventanaModTarea = new JFrame("Gestion de Notas");
+
+    int numeroRow = 0;
 
 
 
@@ -87,16 +89,65 @@ public class GestionNotas {
         btn_modificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Creamos un int el cual le damos un Nombre
-                int selectRow = tabla.getSelectedRow();
-                //Creamos un if con el nombre del int creado
-                if (selectRow != -1) {
 
+                int idRow = tabla.getSelectedRow();
+                numeroRow = idRow;
+                if (idRow != -1) {
 
+                    ventanaModTarea.setContentPane(modtarea.ventanaMod);
+                    ventanaModTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    ventanaModTarea.setBounds(0,0,350,300);
+                    ventanaModTarea.setVisible(true);
+
+                    String nombreCreadorAntiguo = (String) tabla.getValueAt(idRow,0);
+                    String nombreTareaAntiguo = (String) tabla.getValueAt(idRow,1);
+                    String tareaAntigua = (String) tabla.getValueAt(idRow,2);
+
+                    modtarea.textFieldNombreCreadorMod.setText(nombreCreadorAntiguo);
+                    modtarea.textFieldnombreTareaMod.setText(nombreTareaAntiguo);
+                    modtarea.textAreaTareaMod.setText(tareaAntigua);
 
                 }else {
-
+                    JOptionPane.showMessageDialog(null,"Seleccione una tarea","Error al seleccionar",JOptionPane.ERROR_MESSAGE);
                 }
+
+
+
+            }
+        });
+
+        modtarea.btnAñadirMod.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreCreadorNuevo = modtarea.textFieldNombreCreadorMod.getText();
+                String nombreTareaNuevo = modtarea.textFieldnombreTareaMod.getText();
+                String tareaNuevo = modtarea.textAreaTareaMod.getText();
+
+                if(!nombreCreadorNuevo.isEmpty()){
+                    tabla.setValueAt(nombreCreadorNuevo,numeroRow,0);
+                }
+
+                if(!nombreTareaNuevo.isEmpty()){
+                    tabla.setValueAt(nombreTareaNuevo,numeroRow,1);
+                }
+
+                if(!tareaNuevo.isEmpty()){
+                    tabla.setValueAt(tareaNuevo,numeroRow,2);
+                }
+
+                ventanaModTarea.dispose();
+                modtarea.textFieldNombreCreadorMod.setText(" ");
+                modtarea.textFieldnombreTareaMod.setText(" ");
+                modtarea.textAreaTareaMod.setText(" ");
+
+
+            }
+        });
+
+        modtarea.btn_cancelarButtonMod.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventanaModTarea.dispose();
             }
         });
 
@@ -108,7 +159,6 @@ public class GestionNotas {
                 int seleccionFila = tabla.getSelectedRow();
                 //Creamos un if el cual dice que al seleccionar una fila se tiene que eliminar
                 if (seleccionFila!=-1){
-
 
                     int opcion = JOptionPane.showConfirmDialog(null,"¿Seguro que quieres eliminar esta tarea?","Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
 
