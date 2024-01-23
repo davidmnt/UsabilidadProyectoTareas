@@ -51,8 +51,8 @@ public class GestionNotas {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Creamos estos String que mas tarde usuaremos
-                String nombreCreador = nuevatarea.textFieldnombreTarea.getText();
-                String NombreTarea = nuevatarea.textFieldNombreCreador.getText();
+                String nombreCreador = nuevatarea.textFieldNombreCreador.getText();
+                String NombreTarea = nuevatarea.textFieldnombreTarea.getText();
                 String Nota = nuevatarea.textAreaTarea.getText();
 
                 ObjNota nota = new ObjNota(nombreCreador,NombreTarea,Nota);
@@ -83,25 +83,22 @@ public class GestionNotas {
             }
         });
 
-       /* //Configuramos el boton Modificar
+       //Configuramos el boton Modificar
         btn_modificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Creamos un int el cual le damos un Nombre
                 int selectRow = tabla.getSelectedRow();
                 //Creamos un if con el nombre del int creado
-                if (selectRow !=-1 && !textField_nota.getText().isEmpty()){ //Aqui hacemos que sea obligatorio que se rellene el campo Notas
-                    //Con esto añadimos los campos de texto en las columnas
-                    tabla.setValueAt(textField_nombre.getText(),selectRow,0);
-                    tabla.setValueAt(textField_apellido.getText(),selectRow,1);
-                    tabla.setValueAt(textField_nota.getText(),selectRow,2);
+                if (selectRow != -1) {
 
-                    //El else nos sirve en caso de que no se cumpla la condición del If (no se rellene notas), nos saldrá este mensaje de Error
-                }else{
-                    JOptionPane.showMessageDialog(null,"Por favor rellene el campo Notas y seleccione una Fila","Error al Modificar",JOptionPane.ERROR_MESSAGE);
+
+
+                }else {
+
                 }
             }
-        });*/
+        });
 
         //Configuramos el boton eliminar
         btn_borrar.addActionListener(new ActionListener() {
@@ -111,10 +108,22 @@ public class GestionNotas {
                 int seleccionFila = tabla.getSelectedRow();
                 //Creamos un if el cual dice que al seleccionar una fila se tiene que eliminar
                 if (seleccionFila!=-1){
-                    //Para eliminar la fila
-                    Model.removeRow(seleccionFila);
 
-                    JOptionPane.showMessageDialog(null,"Has eliminado correctamente","Error",JOptionPane.ERROR_MESSAGE);
+
+                    int opcion = JOptionPane.showConfirmDialog(null,"¿Seguro que quieres eliminar esta tarea?","Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+
+                    if (opcion == JOptionPane.YES_OPTION) {
+
+                        //Para eliminar la fila
+                        Model.removeRow(seleccionFila);
+
+                        // Código para eliminar
+                        // Puedes mostrar el mensaje de eliminación después de realizar la eliminación
+                        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        // Código para manejar el caso en que el usuario elige NO
+                        JOptionPane.showMessageDialog(null, "No se ha realizado ninguna eliminación", "Cancelado", JOptionPane.WARNING_MESSAGE);
+                    }
 
                     //En caso de que no se seleccione ninguna fila nos saldra este mensaje de error
                 }else{
@@ -141,8 +150,8 @@ public class GestionNotas {
     private void createTable() {
 
         //Aqui estamos añadiendo los campos necesaios para la tabla
-        Model.addColumn("Nombre");
         Model.addColumn("Nombre creador");
+        Model.addColumn("Nombre");
         Model.addColumn("Nota");
         tabla.setModel(Model);
 
