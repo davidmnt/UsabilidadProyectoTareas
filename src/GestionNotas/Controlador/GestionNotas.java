@@ -4,22 +4,19 @@ import GestionNotas.Modelo.ObjNota;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class GestionNotas {
-    private JPanel MainPanel;
-    private JLabel label_titulo;
-    private JPanel JPanel_tabla;
-    private JTable tabla;
-    private JButton btn_nuevo;
-    private JButton btn_modificar;
-    private JButton btn_borrar;
-    private JPanel JPanel_btn;
-    private JLabel Ayuda;
-    private static DefaultTableModel Model;
+    public JPanel MainPanel;
+    public JLabel label_titulo;
+    public JPanel JPanel_tabla;
+    public JTable tabla;
+    public JButton btn_nuevo;
+    public JButton btn_modificar;
+    public JButton btn_borrar;
+    public JPanel JPanel_btn;
+    public JLabel Ayuda;
+    public static DefaultTableModel Model;
     NuevaTarea nuevatarea = new NuevaTarea();
     ModTarea modtarea = new ModTarea();
 
@@ -32,8 +29,10 @@ public class GestionNotas {
 
     public GestionNotas(){
         Model = new DefaultTableModel();
+        btn_nuevo.setFocusable(true);
+        btn_nuevo.requestFocus();
 
-       comprobarUsabilidadBotones();
+        comprobarUsabilidadBotones();
 
         //Metodo para configurar la tabla
         createTable();
@@ -47,6 +46,26 @@ public class GestionNotas {
                 ventanaNuevaTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 ventanaNuevaTarea.setBounds(100,100,450,400);
                 ventanaNuevaTarea.setVisible(true);
+
+            }
+        });
+
+        btn_nuevo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                    btn_nuevo.doClick(); // Simula un clic en el botón
+
+                    ventanaNuevaTarea.setContentPane(nuevatarea.PanelNuevaTareaMod);
+                    ventanaNuevaTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    ventanaNuevaTarea.setBounds(100,100,450,400);
+                    ventanaNuevaTarea.setVisible(true);
+
+
+                }
 
             }
         });
@@ -80,8 +99,6 @@ public class GestionNotas {
 
                     btn_borrar.setEnabled(true);
                     btn_modificar.setEnabled(true);
-
-
                 }
             }
         });

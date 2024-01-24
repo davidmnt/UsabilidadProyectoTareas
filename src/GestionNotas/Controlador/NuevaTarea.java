@@ -1,6 +1,10 @@
 package GestionNotas.Controlador;
 
+import GestionNotas.Modelo.ObjNota;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NuevaTarea {
 
@@ -15,6 +19,5 @@ public class NuevaTarea {
     public JButton btnAñadirMod;
     public JButton btn_cancelarButtonMod;
     public JTextArea textAreaTareaMod;
-
 
 }
