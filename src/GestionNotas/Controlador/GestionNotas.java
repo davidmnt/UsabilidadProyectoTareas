@@ -4,9 +4,11 @@ import GestionNotas.Modelo.ObjNota;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 
 public class GestionNotas {
+
     public JPanel MainPanel;
     public JLabel label_titulo;
     public JPanel JPanel_tabla;
@@ -29,8 +31,14 @@ public class GestionNotas {
 
     public GestionNotas(){
         Model = new DefaultTableModel();
-        btn_nuevo.setFocusable(true);
-        btn_nuevo.requestFocus();
+
+
+
+        btn_nuevo.requestFocusInWindow();
+
+        Color col = new Color(237,242,250);
+
+        tabla.setBackground(col);
 
         comprobarUsabilidadBotones();
 
@@ -57,12 +65,8 @@ public class GestionNotas {
 
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-                    btn_nuevo.doClick(); // Simula un clic en el botón
+                    JOptionPane.showMessageDialog(null, "Enter presionado en el campo de texto");
 
-                    ventanaNuevaTarea.setContentPane(nuevatarea.PanelNuevaTareaMod);
-                    ventanaNuevaTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    ventanaNuevaTarea.setBounds(100,100,450,400);
-                    ventanaNuevaTarea.setVisible(true);
 
 
                 }
@@ -215,12 +219,10 @@ public class GestionNotas {
         //El boton Ayuda
         Ayuda.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
                 JOptionPane.showMessageDialog(null,"Para crear una nueva nota, pulsar en nueva nota y rellenar los campos deseados"
                         ,"Ayuda",JOptionPane.INFORMATION_MESSAGE);
-
             }
         });
     }
