@@ -19,7 +19,7 @@ public class GestionNotas {
     private JButton btn_borrar;
     private JPanel JPanel_btn;
     private JLabel Ayuda;
-    private DefaultTableModel Model;
+    private static DefaultTableModel Model;
     NuevaTarea nuevatarea = new NuevaTarea();
     ModTarea modtarea = new ModTarea();
     JFrame ventanaNuevaTarea = new JFrame("Gestion de Notas");
@@ -32,6 +32,8 @@ public class GestionNotas {
     public GestionNotas(){
         Model = new DefaultTableModel();
 
+       comprobarUsabilidadBotones();
+
         //Metodo para configurar la tabla
         createTable();
 
@@ -40,7 +42,7 @@ public class GestionNotas {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ventanaNuevaTarea.setContentPane(nuevatarea.PanelNuevaTarea);
+                ventanaNuevaTarea.setContentPane(nuevatarea.PanelNuevaTareaMod);
                 ventanaNuevaTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 ventanaNuevaTarea.setBounds(0,0,350,300);
                 ventanaNuevaTarea.setVisible(true);
@@ -49,13 +51,13 @@ public class GestionNotas {
         });
 
         //Btn_añadir
-        nuevatarea.btnAñadir.addActionListener(new ActionListener() {
+        nuevatarea.btnAñadirMod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Creamos estos String que mas tarde usuaremos
-                String nombreCreador = nuevatarea.textFieldNombreCreador.getText();
-                String NombreTarea = nuevatarea.textFieldnombreTarea.getText();
-                String Nota = nuevatarea.textAreaTarea.getText();
+                String nombreCreador = nuevatarea.textFieldNombreCreadorMod.getText();
+                String NombreTarea = nuevatarea.textFieldnombreTareaMod.getText();
+                String Nota = nuevatarea.textAreaTareaMod.getText();
 
                 ObjNota nota = new ObjNota(nombreCreador,NombreTarea,Nota);
 
@@ -70,15 +72,21 @@ public class GestionNotas {
                     Model.addRow(Nuevo); //Esto nos sirve para que podamos añadir la tabla con el array
 
                     ventanaNuevaTarea.dispose();
-                    nuevatarea.textAreaTarea.setText(" ");
-                    nuevatarea.textFieldnombreTarea.setText(" ");
-                    nuevatarea.textFieldNombreCreador.setText(" ");
+                    nuevatarea.textAreaTareaMod.setText(" ");
+                    nuevatarea.textFieldnombreTareaMod.setText(" ");
+                    nuevatarea.textFieldNombreCreadorMod.setText(" ");
+
+
+                    btn_borrar.setEnabled(true);
+                    btn_modificar.setEnabled(true);
+
+
                 }
             }
         });
 
         //Configuramos para cerrar la ventana emergente
-        nuevatarea.btn_cancelarButton.addActionListener(new ActionListener() {
+        nuevatarea.btn_cancelarButtonMod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ventanaNuevaTarea.dispose();
@@ -141,6 +149,8 @@ public class GestionNotas {
                 modtarea.textAreaTareaMod.setText(" ");
 
 
+
+
             }
         });
 
@@ -166,6 +176,8 @@ public class GestionNotas {
 
                         //Para eliminar la fila
                         Model.removeRow(seleccionFila);
+
+                        comprobarUsabilidadBotones();
 
                         // Código para eliminar
                         // Puedes mostrar el mensaje de eliminación después de realizar la eliminación
@@ -195,6 +207,15 @@ public class GestionNotas {
         });
     }
 
+    private void comprobarUsabilidadBotones(){
+        if(Model.getRowCount() <= 0){
+            btn_borrar.setEnabled(false);
+            btn_modificar.setEnabled(false);
+            System.out.println(Model.getRowCount());
+        }
+    }
+
+
     //Este es el metodo para configurar la tabla y que se haga visible
     //Aqui pondremos los campos necesarios paa la tabla
     private void createTable() {
@@ -214,5 +235,8 @@ public class GestionNotas {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0,0,550,500);
         frame.setVisible(true);
+
+
+
     }
 }

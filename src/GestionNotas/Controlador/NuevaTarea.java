@@ -4,17 +4,17 @@ import javax.swing.*;
 
 public class NuevaTarea {
 
-    public JPanel PanelNuevaTarea;
-    public JTextField textFieldnombreTarea;
-    public JLabel LabelNombreTarea;
+    public JPanel PanelNuevaTareaMod;
+    public JTextField textFieldnombreTareaMod;
+    public JLabel LabelNombreTareaMod;
     public JLabel LabelTarea;
     public JLabel LabelNombreCreador;
-    public JTextField textFieldNombreCreador;
+    public JTextField textFieldNombreCreadorMod;
     public JLabel Titulo;
     public JPanel VentanaBotones;
-    public JButton btnAñadir;
-    public JButton btn_cancelarButton;
-    public JTextArea textAreaTarea;
+    public JButton btnAñadirMod;
+    public JButton btn_cancelarButtonMod;
+    public JTextArea textAreaTareaMod;
 
 
 }
