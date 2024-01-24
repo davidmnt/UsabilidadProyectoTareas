@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class ModTarea {
     public JPanel ventanaMod;
-    public JPanel PanelNuevaTarea;
+    public JPanel PanelModNota;
     public JLabel LabelNombreTarea;
     public JTextField textFieldnombreTareaMod;
     public JLabel LabelTarea;

@@ -22,6 +22,7 @@ public class GestionNotas {
     private static DefaultTableModel Model;
     NuevaTarea nuevatarea = new NuevaTarea();
     ModTarea modtarea = new ModTarea();
+
     JFrame ventanaNuevaTarea = new JFrame("Gestion de Notas");
     JFrame ventanaModTarea = new JFrame("Gestion de Notas");
 
@@ -44,7 +45,7 @@ public class GestionNotas {
 
                 ventanaNuevaTarea.setContentPane(nuevatarea.PanelNuevaTareaMod);
                 ventanaNuevaTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                ventanaNuevaTarea.setBounds(0,0,350,300);
+                ventanaNuevaTarea.setBounds(100,100,450,400);
                 ventanaNuevaTarea.setVisible(true);
 
             }
@@ -102,9 +103,9 @@ public class GestionNotas {
                 numeroRow = idRow;
                 if (idRow != -1) {
 
-                    ventanaModTarea.setContentPane(modtarea.ventanaMod);
+                    ventanaModTarea.setContentPane(modtarea.PanelModNota);
                     ventanaModTarea.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    ventanaModTarea.setBounds(0,0,350,300);
+                    ventanaModTarea.setBounds(100,100,450,400);
                     ventanaModTarea.setVisible(true);
 
                     String nombreCreadorAntiguo = (String) tabla.getValueAt(idRow,0);
@@ -233,7 +234,7 @@ public class GestionNotas {
         JFrame frame = new JFrame("Gestion de Notas");
         frame.setContentPane(new GestionNotas().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(0,0,550,500);
+        frame.setBounds(100,100,550,500);
         frame.setVisible(true);
 
 
